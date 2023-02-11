@@ -1,6 +1,9 @@
 #include <vector>
+#include <iostream>
+using namespace std;
 
 const std::string ElementCodes[] = {
+    "undefined",
     "H",
     "He",
     "Li",
@@ -119,7 +122,7 @@ const std::string ElementCodes[] = {
     "Lv",
     "Ts",
     "Og"
-}
+};
 
 
 
@@ -130,15 +133,15 @@ private:
 public:
     Atom(int inpPro, int inpNeu, int inpEle)
     {
-        proton = inpProton;
+        proton = inpPro;
         neutron = inpNeu;
         electron = inpEle;
     }
-    Atom(int inpPro, int inpNeu, int inpEle)
+    Atom(int inpPro, int inpNeu)
     {
-        proton = inpProton;
+        proton = inpPro;
         neutron = inpNeu;
-        electron = inpEle;
+        electron = inpPro;
     }
     int GetMass()
     {
@@ -155,5 +158,26 @@ public:
     std::string GetCode()
     {
         return ElementCodes[proton];
+    }
+};
+
+class Molecule {
+public:
+    vector<pair<Atom, int>> atoms;
+    Molecule(vector<pair<Atom, int>> inpAtoms)
+    {
+        for (pair<Atom, int> p : inpAtoms) {
+            atoms.push_back(p);
+        }
+    }
+    string toString()
+    {
+        string retStr = "";
+        for (auto p : atoms)
+        {
+            retStr += p.first.GetCode();
+            retStr += to_string(p.second);
+        }
+        return retStr;
     }
 };
